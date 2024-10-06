@@ -1,0 +1,27 @@
+def preprocess_inputs(df):
+    df = df.copy()
+    
+    # Drop ID column
+    df.drop('ID', axis=1, inplace = True)
+    
+    # Binary encoding
+    df['Gender'] = df['Gender'].replace({'F': 0, 'M': 1})
+    
+    # One-hot encoding
+    for column in ['Warehouse_block', 'Mode_of_Shipment', 'Product_importance']:
+        df = onehot_encode(df, column=column)
+    
+    # Split df into X and y
+    y = df['Reached.on.Time_Y.N']
+    X = df.drop('Reached.on.Time_Y.N', axis=1)
+    
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.7, shuffle=True, random_state=1)
+    
+    # Scale X
+    scaler = StandardScaler()
+    scaler.fit(X_train)
+    X_train = pd.DataFrame(scaler.transform(X_train), index=X_train.index, columns=X_train.columns)
+    X_test = pd.DataFrame(scaler.transform(X_test), index=X_test.index, columns=X_test.columns)
+    
+    return X_train, X_test, y_train, y_test

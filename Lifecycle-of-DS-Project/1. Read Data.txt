@@ -1,0 +1,11 @@
+df = pd.read_csv('android-games.csv')
+df.head(2)
+df.shape
+df.info()
+df.describe().T
+df.isnull().sum()
+df.isna().sum()
+
+categorical_columns = df.dtypes[df.dtypes == 'object'].index
+numerical_columns = df.dtypes[df.dtypes != 'object'].index
+# Comment

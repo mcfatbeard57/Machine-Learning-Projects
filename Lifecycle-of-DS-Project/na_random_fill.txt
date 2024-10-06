@@ -1,0 +1,15 @@
+def na_randomfill(series):
+    na_mask = pd.isnull(series)   # boolean mask for null values
+    n_null = na_mask.sum()        # number of nulls in the Series
+    
+    if n_null == 0:
+        return series             # if there are no nulls, no need to resample
+    
+    # Randomly sample the non-null values from our series
+    #  only sample this Series as many times as we have nulls 
+    fill_values = series[~na_mask].sample(n=n_null, replace=True, random_state=0)
+
+    # This ensures our new values will replace NaNs in the correct locations
+    fill_values.index = series.index[na_mask]
+    
+    return series.fillna(fill_values) 

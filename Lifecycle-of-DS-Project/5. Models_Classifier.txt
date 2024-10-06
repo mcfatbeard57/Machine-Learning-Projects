@@ -1,0 +1,111 @@
+lj = LogisticRegression(solver="liblinear").fit(xTrain,yTrain)
+gnb = GaussianNB().fit(xTrain,yTrain)
+knnc = KNeighborsClassifier().fit(xTrain,yTrain)
+cartc = DecisionTreeClassifier(random_state=42).fit(xTrain,yTrain)
+rfc = RandomForestClassifier(random_state=42,verbose=False).fit(xTrain,yTrain)
+gbmc = GradientBoostingClassifier(verbose=False).fit(xTrain,yTrain)
+xgbc = XGBClassifier().fit(xTrain,yTrain)
+lgbmc = LGBMClassifier().fit(xTrain,yTrain)
+catbc = CatBoostClassifier(verbose=False).fit(xTrain,yTrain)
+
+
+modelsc = [lj,gnb,knnc,cartc,rfc,gbmc,xgbc,lgbmc,catbc]
+
+
+
+
+for model in modelsc:
+    name = model.__class__.__name__
+    R2CV = cross_val_score(model,xTest,yTest,cv=10,verbose=False).mean()
+    error = -cross_val_score(model,xTest,yTest,cv=10,scoring="neg_mean_squared_error",verbose=False).mean()
+    print(name + ": ")
+    print("-" * 10)
+    print(R2CV)
+    print(np.sqrt(error))
+    print("-" * 30)
+
+
+
+r = pd.DataFrame(columns=["MODELS","R2CV"])
+for model in modelsc:
+    name = model.__class__.__name__
+    R2CV = cross_val_score(model,xTest,yTest,cv=10,verbose=False).mean()
+    result = pd.DataFrame([[name,R2CV*100]],columns=["MODELS","R2CV"])
+    r = r.append(result)
+    
+figure = plt.figure(figsize=(20,8))   
+sns.barplot(x="R2CV",y="MODELS",data=r,color="k")
+plt.xlabel("R2CV")
+plt.ylabel("MODELS")
+plt.xlim(30,100)
+plt.title("MODEL ACCURACY COMPARISON")
+plt.show()
+
+
+
+r = pd.DataFrame(columns=["MODELS","error"])
+for model in modelsc:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from sklearn.model_selection import train_test_split, cross_val_score, cross_val_predict
+from sklearn.preprocessing import scale
+from sklearn.model_selection import ShuffleSplit, GridSearchCV
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn import model_selection
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import BaggingRegressor
+from sklearn.svm import SVR
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPRegressor
+from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import LinearRegression
+from sklearn.cross_decomposition import PLSRegression
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import RidgeCV
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import LassoCV
+from sklearn.linear_model import ElasticNet
+from sklearn.linear_model import ElasticNetCV
+from sklearn import linear_model
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.ensemble import GradientBoostingRegressor, GradientBoostingClassifier
+import xgboost as xgb
+from xgboost import XGBRegressor, XGBClassifier
+from lightgbm import LGBMRegressor, LGBMClassifier
+from catboost import CatBoostRegressor, CatBoostClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from sklearn import tree
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, roc_auc_score, roc_curve
+    name = model.__class__.__name__
+    error = -cross_val_score(model,xTest,yTest,cv=10,scoring="neg_mean_squared_error",verbose=False).mean()
+    result = pd.DataFrame([[name,np.sqrt(error)]],columns=["MODELS","error"])
+    r = r.append(result)
+    
+figure = plt.figure(figsize=(20,8))   
+sns.barplot(x="error",y="MODELS",data=r,color="r")
+plt.xlabel("Error")
+plt.ylabel("MODELS")
+plt.xlim(0,2)
+plt.title("MODEL ERROR COMPARISON")
+plt.show()	

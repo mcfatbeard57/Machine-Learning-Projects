@@ -1,0 +1,64 @@
+lm = LinearRegression().fit(xTrain,yTrain)
+pls = PLSRegression().fit(xTrain,yTrain)
+ridge = Ridge().fit(xTrain,yTrain)
+lasso = Lasso().fit(xTrain,yTrain)
+elasticnet = ElasticNet().fit(xTrain,yTrain)
+knnr = KNeighborsRegressor().fit(xTrain,yTrain)
+cartr = DecisionTreeRegressor(random_state=42).fit(xTrain,yTrain)
+baggr = BaggingRegressor(random_state=42,bootstrap_features=True,verbose=False).fit(xTrain,yTrain)
+rfr = RandomForestRegressor(random_state=42,verbose=False).fit(xTrain,yTrain)
+gbmr = GradientBoostingRegressor(verbose=False).fit(xTrain,yTrain)
+xgbr = XGBRegressor().fit(xTrain,yTrain)
+lgbmr = LGBMRegressor().fit(xTrain,yTrain)
+catbr = CatBoostRegressor(verbose=False).fit(xTrain,yTrain)
+
+
+
+models = [lm,pls,ridge,lasso,elasticnet,knnr,
+         cartr,baggr,rfr,gbmr,xgbr,lgbmr,catbr]
+
+
+
+for model in models:
+    name = model.__class__.__name__
+    R2CV = cross_val_score(model,xTest,yTest,cv=10,scoring="r2").mean()
+    error = -cross_val_score(model,xTest,yTest,cv=10,scoring="neg_mean_squared_error").mean()
+    print(name + ": ")
+    print("-" * 10)
+    print(R2CV)
+    print(np.sqrt(error))
+    print("-" * 30)
+
+
+
+
+r = pd.DataFrame(columns=["MODELS","R2CV"])
+for model in models:
+    name = model.__class__.__name__
+    R2CV = cross_val_score(model,xTest,yTest,cv=10,scoring="r2").mean()
+    result = pd.DataFrame([[name,R2CV*100]],columns=["MODELS","R2CV"])
+    r = r.append(result)
+    
+figure = plt.figure(figsize=(20,8))   
+sns.barplot(x="R2CV",y="MODELS",data=r,color="k")
+plt.xlabel("R2CV")
+plt.ylabel("MODELS")
+plt.xlim(30,100)
+plt.title("MODEL ACCURACY COMPARISON")
+plt.show()
+
+
+r = pd.DataFrame(columns=["MODELS","error"])
+for model in models:
+    name = model.__class__.__name__
+    error = -cross_val_score(model,xTest,yTest,cv=10,scoring="neg_mean_squared_error").mean()
+    result = pd.DataFrame([[name,np.sqrt(error)]],columns=["MODELS","error"])
+    r = r.append(result)
+    
+figure = plt.figure(figsize=(20,8))   
+sns.barplot(x="error",y="MODELS",data=r,color="r")
+plt.xlabel("Error")
+plt.ylabel("MODELS")
+plt.xlim(0,2)
+plt.title("MODEL ERROR COMPARISON")
+plt.show()
