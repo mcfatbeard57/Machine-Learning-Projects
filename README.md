@@ -8,13 +8,12 @@ This Repository contains all my Machine Learning Projects
 | SMS_Spam_Classification_NLP | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/SMS_Spam_Classification_NLP) | |
 | Yelp_Restaurant_Reviews_NLP | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Yelp_Restaurant_Reviews_NLP) | |
 | Hands-On-ML-Tensor-FLow | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Hands-On-ML-Tensor-FLow) | |
-|  | [Link]() | |
-|  | [Link]() | |
-|  | [Link]() | |
-|  | [Link]() | |
-|  | [Link]() | |
-|  | [Link]() | |
-|  | [Link]() | |
+| Collabs_notebooks | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Collabs_notebooks) | |
+| Deep-Learning-Models | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Deep-Learning-Models) | |
+| Feature-Engineering | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Feature-Engineering) | |
+| Data-Science-Interview-Questions | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Data-Science-Interview-Questions) | |
+| Lifecycle-of-DS-Project | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Lifecycle-of-DS-Project) | |
+| openCV basiscs | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/openCV%20basics) | |
 |  | [Link]() | |
 |  | [Link]() | |
 |  | [Link]() | |
