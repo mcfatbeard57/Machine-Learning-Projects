@@ -1,0 +1,9 @@
+Important Links:-
+
+Documentation: - https://clever-noyce-f9d43f.netlify.app/#/
+
+Hyperparamter Tuning :- https://clever-noyce-f9d43f.netlify.app/#/hp_finder/model_finder
+
+Colab Notebook :- https://colab.research.google.com/drive/1BrWdjgXREy6VWYlyn9wF4iaqSGf8yvEa
+
+Medium Link :- https://medium.com/@monkai/plant-disease-classification-with-monk-3a4d7ba419b9
