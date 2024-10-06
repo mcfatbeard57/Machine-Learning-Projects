@@ -1,0 +1,11 @@
+block_context = 'context'
+block_tai_mgmt_db = 'tai-mgmt-db'
+block_call_control_profile = 'call-control-profile'
+block_apn_profile = 'apn-profile'
+block_sgsn_global = 'sgsn-global'
+block_imei_profile = 'imei-profile'
+block_apn_remap = 'apn-remap-table'
+# todo: wrong approch, need to fix
+block_ss7_routing = 'ss7-routing-domain'
+block_ss7_routing_2 = 'ss7-routing-domain 2'
+block_peer_server = 'peer-server'

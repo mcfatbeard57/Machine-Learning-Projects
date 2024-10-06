@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Config File="plugin/PSC-SogInterface/Config.cfg" Origin="Member1">
+<Component Name="PSC-SogInterface">
+<ComponentVersion Name="8.2">
+<MOName>
+<PSC-SogInterface></PSC-SogInterface>
+</MOName>
+<MOLifeCycleNotification>LifeCycleNotification</MOLifeCycleNotification>
+<EventServerAddress>FSC-Event/8.0</EventServerAddress>
+<StatisticInterval>30</StatisticInterval>
+<GeneralTimeout>15</GeneralTimeout>
+<Connections>
+<ConnectionData>
+CAI
+<SingleLineLogin></SingleLineLogin>
+<SingleLineLoginCommand>LOGIN:</SingleLineLoginCommand>
+<DisconnectCommand>LOGOUT;</DisconnectCommand>
+<PingCmd></PingCmd>
+<NumberSeries>77609,96329,97401,97402,76250,98800,98802,99804,99805,99809,4044505,4044503,4044501,4044500,90085,90086,90089,95351,96631,9535,8861,7760,73380,89717,99800,99801,99802</NumberSeries>
+<NumConnections>3</NumConnections>
+<HostIP>10.91.64.161</HostIP>
+<PortNumber>3300</PortNumber>
+<Login>sdpuser</Login>
+<Password>Sdpuser@1</Password>
+<Prompt>Enter command:</Prompt>
+<MaxConnectionRetries>3</MaxConnectionRetries>
+<MaxCommunicationAttempts>3</MaxCommunicationAttempts>
+<CommunicationTimeout>60</CommunicationTimeout>
+<CommandEndLineChar>USE_CRLF</CommandEndLineChar>
+<MSISDNPrefix>91</MSISDNPrefix>
+<LogFile>
+<Path>/var/opt/fds/logs/SOG_REPORT_EMA1</Path>
+<MaxLines>150000</MaxLines>
+<NodeId>kksdp45a</NodeId>
+</LogFile>
+</ConnectionData>
+<ConnectionData>
+CAI
+<SingleLineLogin></SingleLineLogin>
+<SingleLineLoginCommand>LOGIN:</SingleLineLoginCommand>
+<DisconnectCommand>LOGOUT;</DisconnectCommand>
+<PingCmd></PingCmd>
+<NumberSeries>default</NumberSeries>
+<NumConnections>3</NumConnections>
+<HostIP>10.91.74.33</HostIP>
+<PortNumber>3301</PortNumber>
+<Login>sdpuser</Login>
+<Password>Sdpuser@1</Password>
+<Prompt>Enter command:</Prompt>
+<MaxConnectionRetries>3</MaxConnectionRetries>
+<MaxCommunicationAttempts>3</MaxCommunicationAttempts>
+<CommunicationTimeout>60</CommunicationTimeout>
+<CommandEndLineChar>USE_CRLF</CommandEndLineChar>
+<MSISDNPrefix>91</MSISDNPrefix>
+<LogFile>
+<Path>/var/opt/fds/logs/SOG_REPORT</Path>
+<MaxLines>150000</MaxLines>
+<NodeId>kksdp45a</NodeId>
+</LogFile>
+</ConnectionData>
+<CAI>
+<gprsBlock></gprsBlock>
+<gprsUnBlock></gprsUnBlock>
+<gprsDisconnect></gprsDisconnect>
+<smsMTBlock></smsMTBlock>
+<smsMTUnBlock></smsMTUnBlock>
+<OVoiceBlock></OVoiceBlock>
+<OVoiceUnBlock></OVoiceUnBlock>
+<TVoiceBlock></TVoiceBlock>
+<TVoiceUnBlock></TVoiceUnBlock>
+<smsMOBlock></smsMOBlock>
+<smsMOUnBlock></smsMOUnBlock>
+<AnswerWithSuccess>RESP:0;,RESP:10220;,RESP:2001;,RESP:35102;,RESP:200;,RESP:1097;</AnswerWithSuccess>
+<AnswerToTryAgain>RESP:15;,RESP:32;,RESP:75;,RESP:149;,RESP:182;,RESP:189;,RESP:3005;,RESP:3014;,RESP:3049;,RESP:3501;,RESP:1001;</AnswerToTryAgain>
+<AnswerThatFailed>RESP:13;,RESP:14;</AnswerThatFailed>
+<AnswerNotLoggedIn>RESP:3007;</AnswerNotLoggedIn>
+</CAI>
+<MML>
+<smsMOBlock>HGSDC:MSISDN=[msisdn_number],SUD=TS22-0;</smsMOBlock>
+<smsMOUnBlock>HGSDC:MSISDN=[msisdn_number],SUD=TS22-1;</smsMOUnBlock>
+<smsMTBlock>HGSDC:MSISDN=[msisdn_number],SUD=STYPE-22;</smsMTBlock>
+<smsMTUnBlock>HGSDC:MSISDN=[msisdn_number],SUD=STYPE-16;</smsMTUnBlock>
+<gprsBlock>HGSNC:MSISDN=[msisdn_number],NAM=1,KEEP;</gprsBlock>
+<gprsUnBlock>HGSNC:MSISDN=[msisdn_number],NAM=0,KEEP;</gprsUnBlock>
+<gprsDisconnect>HGSLR:MSISDN=[msisdn_number];[NextCmd];</gprsDisconnect>
+<OVoiceBlock>HGSDC:MSISDN=[msisdn_number],SUD=TS21-1;</OVoiceBlock>
+<OVoiceUnBlock>HGSDC:MSISDN=[msisdn_number],SUD=TS21-1;</OVoiceUnBlock>
+<TVoiceBlock>HGSDC:MSISDN=[msisdn_number],SUD=TICK-160;</TVoiceBlock>
+<TVoiceUnBlock>HGSDC:MSISDN=[msisdn_number],SUD=TICK-0;</TVoiceUnBlock>
+<AnswerWithSuccess>EXECUTED,SUBSCRIBER NETWORK ACCESS MODE HAS ALREADY THAT VALUE</AnswerWithSuccess>
+<AnswerToTryAgain>GENERAL BEARER SERVICE NOT SUBSCRIBED,FUNCTIONALITY NOT SUPPORTED BY THIS EXCHANGE,SUBSCRIBER DISCONNECTION IN PROGRESS,PARAMETER VALUE NOT SUPPORTED BY THIS EXCHANGE,STORAGE SHORTAGE IN BSG DATA FILE,SUBSCRIBER DATA NOT RECOGNIZED,MAXIMUM NUMBER OF GPRS SUBSCRIPTIONS EXCEEDED,UNREASONABLE VALUE,FORMAT ERROR,SUBSCRIBER DATA NOT APPLICABLE,FUNCTION BUSY</AnswerToTryAgain>
+<AnswerThatFailed>MSISDN NOT DEFINED,IMSI NOT DEFINED,TCTDP NOT DEFINED,CAMEL SUBSCRIPTION DATA NOT DEFINED</AnswerThatFailed>
+<AnswerNotLoggedIn></AnswerNotLoggedIn>
+</MML>
+<CUSTOM>
+<OVoiceBlock></OVoiceBlock>
+<OVoiceUnBlock></OVoiceUnBlock>
+<TVoiceBlock></TVoiceBlock>
+<TVoiceUnBlock></TVoiceUnBlock>
+<smsMOBlock>ZMBD:IMSI=[imsi_number],BSERV=T22;</smsMOBlock>
+<smsMOUnBlock>ZMBC:IMSI=[imsi_number],BSERV=T22;</smsMOUnBlock>
+<smsMTBlock>ZMBD:IMSI=[imsi_number],BSERV=T21;</smsMTBlock>
+<smsMTUnBlock>ZMBC:IMSI=[imsi_number],BSERV=T21;</smsMTUnBlock>
+<gprsBlock>ZMNM:IMSI=[imsi_number]:NWACC=NONGPRS;</gprsBlock>
+<gprsUnBlock>ZMNM:IMSI=[imsi_number]:NWACC=BOTH;</gprsUnBlock>
+<gprsDisconnect></gprsDisconnect>
+<AnswerWithSuccess>EXECUTED,ERROR: 200712,ERROR: 11240,ERROR: 13435</AnswerWithSuccess>
+<AnswerToTryAgain>ERROR: 196618,COMMAND EXECUTION FAILED</AnswerToTryAgain>
+<AnswerThatFailed>ERROR: 10065</AnswerThatFailed>
+<AnswerNotLoggedIn></AnswerNotLoggedIn>
+</CUSTOM>
+</Connections>
+<UseServiceClassRouting>0</UseServiceClassRouting>
+<PluginController Name="A">
+<Glue>
+<Outport>
+GeneralOutport
+<OutNode Name="OutNode">
+OutNode
+<File>libfdsglue.so</File>
+<Class>FDSGlueOutputNode</Class>
+</OutNode>
+</Outport>
+<Inport>
+BlockMessageInport
+<Node>
+First
+<File>libfdsglue.so</File>
+<Class>FDSGlueInputNode</Class>
+<Next>Inport</Next>
+</Node>
+</Inport>
+</Glue>
+<Plugin Name="1"></Plugin>
+<Plugin Name="2"></Plugin>
+</PluginController>
+</ComponentVersion>
+</Component>
+</Config>
