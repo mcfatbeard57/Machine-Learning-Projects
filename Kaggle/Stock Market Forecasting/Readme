@@ -1,0 +1,3 @@
+Stock Market Forecasting: Building robust ARIMA model performing time series analysis and hypothesis testing to check if series is stationary. 
+Separating trend and seasonality from the series and taking rolling average. 
+Using auto armia to find optimal hyperparameters and predicting the stock price with 95% confidence level. MAPE is 2.5% for next 15% predictions.(Kaggle)

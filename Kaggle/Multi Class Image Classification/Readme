@@ -1,0 +1,3 @@
+Using OpenCV to perform multi class image classification of fruit dataset for object detection. 
+There are more than 300 images with their labels. Model consists of CNN layers (activation function = tanh) and 
+fully connected Dense layers (activation = relu). Output layers has 4 units has softmax function with loss =  categorical_entropy, optimizer = adam
