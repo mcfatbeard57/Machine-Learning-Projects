@@ -14,6 +14,7 @@ This Repository contains all my Machine Learning Projects
 | Data-Science-Interview-Questions | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Data-Science-Interview-Questions) | |
 | Lifecycle-of-DS-Project | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Lifecycle-of-DS-Project) | |
 | openCV basiscs | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/openCV%20basics) | |
+| Research-Bot-MoE | [Link](https://github.com/mcfatbeard57/Machine-Learning-Projects/tree/master/Research-Bot-MoE) | MoE research bot: YouTube transcripts → paper topics → research jobs |
 |  | [Link]() | |
 |  | [Link]() | |
 |  | [Link]() | |
