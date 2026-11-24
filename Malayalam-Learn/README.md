@@ -5,7 +5,8 @@ A small, offline, gamified Malayalam course for personal use. No build step, no 
 **Run:** open `index.html` in a browser (phone or desktop).
 
 ## What's in it
-- 8 units, 25 lessons: vowels, consonants, greetings, family, food, numbers, questions, everyday phrases.
+- 10 units: vowels, consonants, greetings, family, food, numbers, questions, everyday phrases, plus **Cinema & Stage Dialogues** and **Slang & Sayings** (both unlocked from day one). Each dialogue shows the film, the actor and a word-by-word breakdown.
+- **Sing-along:** traditional public-domain songs (Omanathinkal Kidavo, Maveli Naadu Vaneedum Kaalam, Kaakke Kaakke) with line-by-line karaoke and a fill-the-blank game.
 - Exercises: multiple choice (both directions), tap‑the‑pairs, sentence building with word chips (both directions), typing, listening.
 - Hearts (refill 1 every 20 min, practice earns one), XP, daily goal, streak, mistakes review.
 - Transliteration (Manglish) toggle; hidden on script lessons so it doesn't give answers away.

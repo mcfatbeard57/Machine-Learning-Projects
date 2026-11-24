@@ -179,4 +179,91 @@ window.COURSE = [
       { ml: ["പതുക്കെ", "പറയൂ"], tr: "pathukke parayoo", en: "Please speak slowly", alt: ["speak slowly", "say it slowly", "please say it slowly", "talk slowly"] }
     ]
   }
+  ,{
+    id: "cinema", title: "Cinema & Stage Dialogues", mlTitle: "സിനിമ ഡയലോഗുകൾ", open: true, noType: true,
+    items: [
+      { ml: "നീ പോ മോനേ ദിനേശാ", tr: "nee pō mōne dineshaa", en: "Get lost, Dinesh my boy!", alt: ["you go son dinesh", "go away dinesh"],
+        note: "Narasimham (2000) — Mohanlal as Induchoodan. നീ you · പോ go · മോനേ son (teasing) · ദിനേശാ O Dinesh. Used as a cocky brush-off." },
+      { ml: "എല്ലാത്തിനും അതിന്റേതായ സമയമുണ്ട് ദാസാ", tr: "ellaathinum athintethaaya samayamundu daasaa", en: "Everything has its own time, Dasa", alt: ["everything has its time dasa"],
+        note: "Nadodikkattu (1987) — Sreenivasan (Vijayan) to Mohanlal (Dasan). എല്ലാത്തിനും for everything · അതിന്റേതായ its own · സമയം time · ഉണ്ട് there is." },
+      { ml: "പവനായി ശവമായി", tr: "pavanaayi shavamaayi", en: "Pavanayi became a corpse", alt: ["pavanayi is dead"],
+        note: "Nadodikkattu (1987) — the hyped-up hitman Pavanayi dies instantly. X ആയി = became X. Said when a grand plan flops." },
+      { ml: "കത്തി താഴെയിടെടാ", tr: "kathi thaazhe idedaa", en: "Drop the knife!", alt: ["put the knife down", "throw the knife down"],
+        note: "Kireedam (1989) — Thilakan as the father pleading with his son (Mohanlal). കത്തി knife · താഴെ down · ഇട് put · എടാ hey (to a male, informal)." },
+      { ml: "ഓർമ്മയുണ്ടോ ഈ മുഖം?", tr: "ormmayundō ee mukham?", en: "Do you remember this face?", alt: ["remember this face"],
+        note: "Commissioner (1994) — Suresh Gopi as Bharathchandran IPS. ഓർമ്മ memory · ഉണ്ടോ is there? · ഈ this · മുഖം face." },
+      { ml: "ഇപ്പൊ ശരിയാക്കിത്തരാം", tr: "ippo shariyaakki tharaam", en: "I'll fix it for you right now", alt: ["i will fix it right now", "i'll fix it now", "i will fix it now"],
+        note: "Vellanakalude Nadu (1988) — Kuthiravattam Pappu's mechanic who never fixes anything. Now said ironically. ഇപ്പൊ now · ശരിയാക്കി having fixed · തരാം I'll give." },
+      { ml: "പോളണ്ടിനെ പറ്റി ഒരക്ഷരം മിണ്ടരുത്", tr: "polandine patti oraksharam mindaruthu", en: "Don't say a word about Poland", alt: ["do not say a word about poland", "don't say a single word about poland"],
+        note: "Sandesham (1991) — Sreenivasan's political satire. പറ്റി about · ഒരക്ഷരം a single letter · മിണ്ടരുത് don't speak." },
+      { ml: "തോമസുകുട്ടീ വിട്ടോടാ", tr: "thomasukuttee vittodaa", en: "Thomaskutty, run for it!", alt: ["thomaskutty run", "thomaskutty scram"],
+        note: "In Harihar Nagar (1990) — the four friends fleeing. Used whenever it's time to escape." },
+      { ml: "നിന്റെ തന്ത അല്ല എന്റെ തന്ത", tr: "ninte thantha alla ente thantha", en: "Your father is not my father", alt: ["your dad is not my dad"],
+        note: "Lucifer (2019) — Mohanlal as Stephen Nedumpally. തന്ത is a rough word for father (polite: അച്ഛൻ). നിന്റെ your · എന്റെ my · അല്ല is not." },
+      { ml: "ചാമ്പിക്കോ", tr: "chaampikko", en: "Go ahead, shoot! (take the photo)", alt: ["go ahead", "take it", "shoot", "take the photo", "go ahead shoot"],
+        note: "Bheeshma Parvam (2022) — Mammootty as Michael telling the photographer to click. Now used for 'go for it'." },
+      { ml: "നിങ്ങളെന്നെ കമ്മ്യൂണിസ്റ്റാക്കി", tr: "ningalenne kammyoonistaakki", en: "You made me a Communist", alt: ["you have made me a communist"],
+        note: "Stage: KPAC's landmark 1952 play by Thoppil Bhasi. നിങ്ങൾ you · എന്നെ me · ആക്കി made (into)." }
+    ]
+  },
+  {
+    id: "slang", title: "Slang & Sayings", mlTitle: "നാടൻ പ്രയോഗങ്ങൾ", open: true, noType: true,
+    items: [
+      { ml: "അടിപൊളി", tr: "adipoli", en: "Awesome!", alt: ["awesome", "super", "great", "cool"], note: "The most Malayali word there is." },
+      { ml: "പൊളിച്ചു", tr: "polichu", en: "Nailed it!", alt: ["nailed it", "rocked it", "smashed it"], note: "Literally 'broke it open'." },
+      { ml: "കിടു", tr: "kidu", en: "Superb", alt: ["super", "awesome", "excellent"] },
+      { ml: "ചുമ്മാ", tr: "chummaa", en: "Just like that / for fun", alt: ["just like that", "for fun", "just kidding", "for nothing"] },
+      { ml: "എന്താ മോനേ?", tr: "enthaa mōne?", en: "What's up, buddy?", alt: ["what's up", "what son", "what is it son"], note: "മോനേ (son) is used for any younger male, even friends." },
+      { ml: "അയ്യോ", tr: "ayyō", en: "Oh no!", alt: ["oh no", "oh my god", "ouch"] },
+      { ml: "ഉറപ്പാ", tr: "urappaa", en: "Definitely!", alt: ["sure", "for sure", "definitely", "guaranteed"] },
+      { ml: "മുറ്റത്തെ മുല്ലയ്ക്ക് മണമില്ല", tr: "muttathe mullaykku manamilla", en: "The jasmine in your own yard has no scent", alt: ["the jasmine in the courtyard has no fragrance"],
+        note: "Proverb: we undervalue what's close to us. മുറ്റം courtyard · മുല്ല jasmine · മണം scent · ഇല്ല none." },
+      { ml: "അണ്ണാൻ കുഞ്ഞും തന്നാലായത്", tr: "annaan kunjum thannaalaayathu", en: "Even a baby squirrel does what it can", alt: ["even the little squirrel does its bit"],
+        note: "Proverb: every small contribution counts. അണ്ണാൻ squirrel · കുഞ്ഞ് baby." },
+      { ml: "ആന വായിൽ അമ്പഴങ്ങ", tr: "aana vaayil ambazhanga", en: "A hog plum in an elephant's mouth", alt: ["a small fruit in an elephant's mouth"],
+        note: "Proverb: far too little for the need. ആന elephant · വായ mouth · അമ്പഴങ്ങ hog plum." }
+    ]
+  }
+];
+
+// Sing-along songs (traditional / public domain).
+window.SONGS = [
+  {
+    id: "omana", title: "Omanathinkal Kidavo", mlTitle: "ഓമനത്തിങ്കൾക്കിടാവോ",
+    credit: "Lullaby by Irayimman Thampi (early 1800s) — Kerala's most famous lullaby.",
+    lines: [
+      { ml: "ഓമനത്തിങ്കൾക്കിടാവോ നല്ല", tr: "ōmanathinkal kidaavō nalla", en: "Are you a darling little moon, or…" },
+      { ml: "കോമളത്താമരപ്പൂവോ", tr: "kōmalathaamarappoovō", en: "…a tender, lovely lotus flower?" },
+      { ml: "പൂവിൽ നിറഞ്ഞ മധുവോ പരി-", tr: "poovil niranja madhuvō pari-", en: "Are you the honey filling the flower, or…" },
+      { ml: "പൂർണേന്ദു തന്റെ നിലാവോ", tr: "poornendu thante nilaavō", en: "…the moonlight of the full moon?" },
+      { ml: "പുത്തൻ പവിഴക്കൊടിയോ ചെറു-", tr: "puthan pavizhakkodiyō cheru-", en: "Are you a fresh coral vine, or…" },
+      { ml: "തത്തകൾ കൊഞ്ചും മൊഴിയോ", tr: "thathakal konchum mozhiyō", en: "…the sweet babble of little parrots?" },
+      { ml: "ചാഞ്ചാടിയാടും മയിലോ മൃദു-", tr: "chaanchaadiyaadum mayilō mridu-", en: "A peacock swaying as it dances, or…" },
+      { ml: "പഞ്ചമം പാടും കുയിലോ", tr: "panchamam paadum kuyilō", en: "…a cuckoo softly singing?" }
+    ]
+  },
+  {
+    id: "maveli", title: "Maveli Naadu Vaneedum Kaalam", mlTitle: "മാവേലി നാടു വാണീടും കാലം",
+    credit: "Traditional Onam song about the golden age of King Mahabali.",
+    lines: [
+      { ml: "മാവേലി നാടു വാണീടും കാലം", tr: "maaveli naadu vaaneedum kaalam", en: "When Maveli ruled the land," },
+      { ml: "മാനുഷരെല്ലാരുമൊന്നുപോലെ", tr: "maanusharellaarumonnupōle", en: "all people were equal." },
+      { ml: "ആമോദത്തോടെ വസിക്കും കാലം", tr: "aamōdathōde vasikkum kaalam", en: "A time when everyone lived in joy," },
+      { ml: "ആപത്തങ്ങാർക്കുമൊട്ടില്ലതാനും", tr: "aapathangaarkkumottillathaanum", en: "and no harm came to anyone." },
+      { ml: "കള്ളവുമില്ല ചതിയുമില്ല", tr: "kallavumilla chathiyumilla", en: "There was no theft, no deceit," },
+      { ml: "എള്ളോളമില്ല പൊളിവചനം", tr: "ellōlamilla polivachanam", en: "not even a sesame seed's worth of lies." },
+      { ml: "കള്ളപ്പറയും ചെറുനാഴിയും", tr: "kallapparayum cherunaazhiyum", en: "No false measures, no short weights," },
+      { ml: "കള്ളത്തരങ്ങൾ മറ്റൊന്നുമില്ല", tr: "kallatharangal mattonnumilla", en: "no trickery of any kind." }
+    ]
+  },
+  {
+    id: "kaakke", title: "Kaakke Kaakke Koodevide", mlTitle: "കാക്കേ കാക്കേ കൂടെവിടെ",
+    credit: "Traditional children's rhyme — great for beginners.",
+    lines: [
+      { ml: "കാക്കേ കാക്കേ കൂടെവിടെ", tr: "kaakke kaakke koodevide", en: "Crow, crow, where is your nest?" },
+      { ml: "കൂട്ടിനകത്തൊരു കുഞ്ഞുണ്ടോ", tr: "koottinakathoru kunjundō", en: "Is there a little one inside the nest?" },
+      { ml: "കുഞ്ഞിനു തീറ്റ കൊടുക്കാഞ്ഞാൽ", tr: "kunjinu theetta kodukkaanjaal", en: "If you don't feed the little one," },
+      { ml: "കുഞ്ഞു കിടന്നു കരഞ്ഞീടും", tr: "kunju kidannu karanjeedum", en: "the little one will lie there and cry." }
+    ]
+  }
 ];

@@ -27,7 +27,7 @@ function accepted(item) { return [item.en, ...(item.alt || [])].map(norm); }
 const COURSE = window.COURSE;
 const ALL_ITEMS = [];
 COURSE.forEach((u, ui) => {
-  u.items.forEach(it => { it.unit = u.id; it.script = !!u.script; it.key = u.id + ":" + it.ml; ALL_ITEMS.push(it); });
+  u.items.forEach(it => { it.unit = u.id; it.script = !!u.script; it.noType = !!u.noType; it.key = u.id + ":" + it.ml; ALL_ITEMS.push(it); });
   (u.sentences || []).forEach(s => { s.unit = u.id; s.key = u.id + ":s:" + s.ml.join(" "); });
   // build lessons: chunks of words, then a sentence lesson
   const chunks = [];
@@ -58,7 +58,7 @@ function tick() {
 }
 function isUnlocked(lesson) {
   const i = ALL_LESSONS.indexOf(lesson);
-  return i === 0 || !!S.done[ALL_LESSONS[i - 1].id] || !!S.done[lesson.id];
+  return i === 0 || !!S.done[ALL_LESSONS[i - 1].id] || !!S.done[lesson.id] || (lesson.unit.open && lesson.unit.lessons[0] === lesson);
 }
 
 // ---------- speech ----------
@@ -120,7 +120,8 @@ function renderHome() {
   html += `<div class="actions">
     <button class="small-btn" data-act="practice">🏋️ Practice${mistakeCount ? ` (${mistakeCount} mistakes)` : ""}</button>
     <button class="small-btn" data-act="words">📖 Words</button>
-    <button class="small-btn" data-act="settings" style="grid-column:span 2">⚙️ Settings</button>
+    <button class="small-btn" data-act="sing">🎤 Sing-along</button>
+    <button class="small-btn" data-act="settings">⚙️ Settings</button>
   </div>`;
   if (S.hearts === 0) {
     const mins = Math.ceil((HEART_REFILL_MS - (Date.now() - S.heartTs)) / 60000);
@@ -151,6 +152,7 @@ function renderHome() {
   };
   $app.querySelector("[data-act=words]").onclick = renderWords;
   $app.querySelector("[data-act=settings]").onclick = renderSettings;
+  $app.querySelector("[data-act=sing]").onclick = renderSongs;
   window.scrollTo(0, 0);
 }
 
@@ -163,7 +165,7 @@ function renderWords() {
     const list = u.items.filter(i => S.seen[i.key]);
     if (!list.length) return;
     html += `<div class="panel"><h3>${esc(u.title)}</h3><div class="word-list">` + list.map(i =>
-      `<div class="word-row"><span><span class="ml" style="font-size:20px">${esc(i.ml)}</span> <span class="muted">${esc(i.tr)}</span></span><span style="font-weight:700;text-align:right">${esc(i.en)}${S.mistakes[i.key] ? " ⚠️" : ""}</span></div>`).join("") + `</div></div>`;
+      `<div class="word-row"><span><span class="ml" style="font-size:20px">${esc(i.ml)}</span> <span class="muted">${esc(i.tr)}</span></span><span style="font-weight:700;text-align:right">${esc(i.en)}${S.mistakes[i.key] ? " ⚠️" : ""}${i.note ? `<div class="muted" style="font-size:13px;font-weight:400">${esc(i.note)}</div>` : ""}</span></div>`).join("") + `</div></div>`;
   });
   $app.innerHTML = html;
   document.getElementById("back").onclick = renderHome;
@@ -223,14 +225,14 @@ function buildLesson(l) {
     l.items.forEach(it => {
       mix.push(mc(it, "en2ml"));
       if (canSpeakML()) mix.push(listen(it));
-      else if (Math.random() < 0.5) mix.push(typeEx(it));
+      else if (!it.noType && Math.random() < 0.5) mix.push(typeEx(it));
     });
     ex.push(...shuffle(mix).slice(0, 7));
     ex.splice(Math.min(ex.length, l.items.length + 2), 0, matchEx(l.items));
   } else {
     l.sentences.forEach((s, i) => ex.push(buildEx(s, i % 2 ? "en2ml" : "ml2en")));
     ex.push(matchEx(l.items));
-    pick(l.items, 3).forEach(it => ex.push(typeEx(it)));
+    pick(l.items.filter(it => !it.noType), 3).forEach(it => ex.push(typeEx(it)));
     return shuffle(ex);
   }
   return ex;
@@ -246,7 +248,7 @@ function buildPractice() {
   const ex = [];
   focus.forEach((it, i) => {
     const r = i % 3;
-    ex.push(r === 0 ? mc(it, "en2ml") : r === 1 ? (canSpeakML() ? listen(it) : mc(it, "ml2en")) : typeEx(it));
+    ex.push(r === 0 ? mc(it, "en2ml") : r === 1 ? (canSpeakML() ? listen(it) : mc(it, "ml2en")) : it.noType ? mc(it, "ml2en") : typeEx(it));
   });
   const sents = [...mistakeSents, ...pick(COURSE.filter(u => doneUnits.has(u.id)).flatMap(u => u.sentences || []), 2)];
   [...new Set(sents)].slice(0, 3).forEach((s, i) => ex.push(buildEx(s, i % 2 ? "en2ml" : "ml2en")));
@@ -274,6 +276,7 @@ function renderEx() {
   else if (ex.type === "type") body = renderType(ex);
   else if (ex.type === "match") body = renderMatch(ex);
   else if (ex.type === "build") body = renderBuild(ex);
+  else if (ex.type === "blank") body = renderBlank(ex);
   $app.innerHTML = `<div class="lesson-top"><button class="x" id="quit" aria-label="Quit">✕</button><div class="bar"><i style="width:${progress}%"></i></div>${sess.hearts ? `<span class="stat heart" style="font-weight:800">❤️ ${S.hearts}</span>` : `<span class="muted" style="font-weight:800">Practice</span>`}</div>
   <div id="ex">${body}</div>
   <div class="foot" id="foot"><div class="foot-in" id="footIn">${ex.type === "match" ? `<button class="cta ghost" id="skip">Can't do this now</button>` : `<button class="cta" id="check" disabled>Check</button>`}</div></div>`;
@@ -333,7 +336,13 @@ function renderBuild(ex) {
 
 function bindEx(ex) {
   $app.querySelectorAll("[data-say]").forEach(b => b.onclick = () => speak(b.dataset.say, "ml"));
-  if (ex.type === "mc" || ex.type === "listen") {
+  if (ex.type === "blank") {
+    $app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+      if (sess.checked) return;
+      $app.querySelectorAll(".opt").forEach(x => x.classList.remove("sel"));
+      b.classList.add("sel"); setAnswer(+b.dataset.i);
+    });
+  } else if (ex.type === "mc" || ex.type === "listen") {
     if (ex.type === "listen" || (ex.dir === "ml2en" && canSpeakML())) setTimeout(() => speak(ex.item.ml, "ml"), 250);
     $app.querySelectorAll(".opt").forEach(b => b.onclick = () => {
       if (sess.checked) return;
@@ -392,6 +401,9 @@ function evaluate(ex) {
     const solution = ex.dir === "en2ml" ? { ml: ex.item.ml, tr: ex.item.tr, en: ex.item.en } : { ml: ex.item.ml, tr: ex.item.tr, en: ex.item.en };
     return { ok, solution, key: ex.item.key };
   }
+  if (ex.type === "blank") {
+    return { ok: ex.options[sess.answer] === ex.word, solution: { ml: ex.line.ml, tr: ex.line.tr, en: ex.line.en }, key: "song:" + ex.line.ml };
+  }
   if (ex.type === "type") {
     const ok = accepted(ex.item).includes(norm(sess.answer));
     return { ok, solution: { ml: ex.item.ml, tr: ex.item.tr, en: ex.item.en }, key: ex.item.key };
@@ -411,11 +423,11 @@ function doCheck() {
   sess.checked = true; sess.answered++;
   if (ex.item) markSeen(ex.item);
   // highlight options
-  if (ex.type === "mc" || ex.type === "listen") {
+  if (ex.type === "mc" || ex.type === "listen" || ex.type === "blank") {
     $app.querySelectorAll(".opt").forEach(b => {
       b.disabled = true;
       const o = ex.options[+b.dataset.i];
-      if (o === ex.item) b.classList.add("right"); else if (+b.dataset.i === sess.answer) b.classList.add("wrong");
+      if (o === (ex.type === "blank" ? ex.word : ex.item)) b.classList.add("right"); else if (+b.dataset.i === sess.answer) b.classList.add("wrong");
     });
   }
   if (r.ok) {
@@ -423,7 +435,7 @@ function doCheck() {
     if (S.mistakes[r.key] && sess.practice) delete S.mistakes[r.key];
   } else {
     beep(false);
-    S.mistakes[r.key] = (S.mistakes[r.key] || 0) + 1;
+    if (ex.type !== "blank") S.mistakes[r.key] = (S.mistakes[r.key] || 0) + 1;
     if (sess.hearts) S.hearts = Math.max(0, S.hearts - 1), S.heartTs = S.hearts === MAX_HEARTS - 1 ? Date.now() : S.heartTs;
     if (!sess.wrongOnce.has(sess.i)) { sess.wrongOnce.add(sess.i); sess.queue.push(Object.assign({}, ex, { retry: true })); }
   }
@@ -431,12 +443,13 @@ function doCheck() {
   const foot = document.getElementById("foot"), fin = document.getElementById("footIn");
   foot.className = "foot " + (r.ok ? "ok" : "bad");
   const sol = r.solution;
-  const solHTML = ex.type === "build" && ex.dir === "en2ml" || ex.type === "mc" && ex.dir === "en2ml"
+  const solHTML = ex.type === "blank" || ex.type === "build" && ex.dir === "en2ml" || ex.type === "mc" && ex.dir === "en2ml"
     ? `<span class="ml">${esc(sol.ml)}</span>${S.showTr ? ` <span class="tr">(${esc(sol.tr)})</span>` : ""}`
     : esc(sol.en);
   const praise = ["Nice!", "Great!", "Correct!", "കൊള്ളാം! (Nice!)", "Excellent!", "അടിപൊളി! (Awesome!)"];
   fin.innerHTML = `<div class="fb-title">${r.ok ? praise[Math.floor(Math.random() * praise.length)] : "Correct answer:"}</div>
     ${r.ok ? `<div class="fb-ans"><span class="ml">${esc(sol.ml)}</span> = ${esc(sol.en)}</div>` : `<div class="fb-ans">${solHTML}</div><div class="fb-ans muted"><span class="ml">${esc(sol.ml)}</span> = ${esc(sol.en)}</div>`}
+    ${ex.item && ex.item.note ? `<div class="fb-ans muted" style="font-size:14px">🎬 ${esc(ex.item.note)}</div>` : ""}
     <button class="cta" id="next">Continue</button>`;
   document.getElementById("next").onclick = nextEx;
   document.getElementById("next").focus();
@@ -475,8 +488,76 @@ function finish() {
   <p class="muted" style="font-weight:700">${s.wrongOnce.size === 0 ? "Flawless — no mistakes!" : "Mistakes get extra practice later."} ${heartMsg}</p>
   <div class="tiles"><div class="tile"><b>Total XP</b><span>⚡ ${xp}</span></div><div class="tile g"><b>Accuracy</b><span>🎯 ${acc}%</span></div><div class="tile"><b>Streak</b><span>🔥 ${S.streak}</span></div><div class="tile g"><b>Time</b><span>⏱ ${mins}m</span></div></div>
   <div class="foot"><div class="foot-in"><button class="cta" id="cont">Continue</button></div></div></div>`;
-  document.getElementById("cont").onclick = renderHome;
+  document.getElementById("cont").onclick = s.song ? renderSongs : renderHome;
   document.getElementById("cont").focus();
+}
+
+// ---------- SING-ALONG ----------
+const SONGS = window.SONGS || [];
+function renderSongs() {
+  let html = topBar() + `<button class="small-btn" id="back">← Back</button><h2>🎤 Sing-along</h2>
+  <p class="muted">Read along line by line, say each line out loud, then play fill-in-the-blank to lock it in.</p>`;
+  SONGS.forEach(sg => {
+    html += `<div class="panel" style="padding:14px 16px"><h3 style="margin:4px 0">${esc(sg.title)}</h3><div class="ml" style="font-size:18px">${esc(sg.mlTitle)}</div>
+      <p class="muted" style="font-size:14px">${esc(sg.credit)}</p>
+      <div class="actions" style="margin-top:0"><button class="small-btn" data-open="${sg.id}">📜 Lyrics</button><button class="small-btn" data-quiz="${sg.id}">🧩 Fill the blank</button></div></div>`;
+  });
+  $app.innerHTML = html;
+  document.getElementById("back").onclick = renderHome;
+  $app.querySelectorAll("[data-open]").forEach(b => b.onclick = () => renderSong(SONGS.find(x => x.id === b.dataset.open), 0));
+  $app.querySelectorAll("[data-quiz]").forEach(b => b.onclick = () => startSession(buildSongQuiz(SONGS.find(x => x.id === b.dataset.quiz)), { practice: true, hearts: false, song: true }));
+  window.scrollTo(0, 0);
+}
+let karaokeTimer = null;
+function renderSong(sg, cur, playing) {
+  clearTimeout(karaokeTimer);
+  const showEn = S.songEn !== false;
+  let html = `<div class="lesson-top"><button class="x" id="back" aria-label="Back">✕</button><div class="bar"><i style="width:${Math.round((cur + 1) / sg.lines.length * 100)}%"></i></div></div>
+  <h2 style="margin:0">${esc(sg.title)}</h2><div class="ml muted" style="margin-bottom:12px">${esc(sg.mlTitle)}</div>
+  <div class="setting" style="border:none;padding:0 0 10px"><span class="muted">Show English meaning</span><button class="toggle ${showEn ? "on" : ""}" id="tEn" aria-label="English"></button></div>`;
+  html += sg.lines.map((ln, i) => `<div class="lyric ${i === cur ? "cur" : ""}" data-line="${i}">
+      <div class="ml" style="font-size:${i === cur ? 24 : 19}px;font-weight:700">${esc(ln.ml)}</div>
+      ${S.showTr ? `<div class="tr">${esc(ln.tr)}</div>` : ""}
+      ${showEn ? `<div class="muted" style="font-size:14px">${esc(ln.en)}</div>` : ""}</div>`).join("");
+  html += `<div class="foot"><div class="foot-in" style="flex-direction:row">
+    <button class="cta ghost" id="prev" ${cur === 0 ? "disabled" : ""}>◀</button>
+    <button class="cta" id="play">${playing ? "⏸ Pause" : "▶ Sing along"}</button>
+    <button class="cta ghost" id="nextL" ${cur === sg.lines.length - 1 ? "disabled" : ""}>▶</button></div></div>`;
+  $app.innerHTML = html;
+  const cel = $app.querySelector(".lyric.cur"); if (cel) cel.scrollIntoView({ block: "center", behavior: "smooth" });
+  document.getElementById("back").onclick = () => { clearTimeout(karaokeTimer); renderSongs(); };
+  document.getElementById("tEn").onclick = () => { S.songEn = !showEn; save(); renderSong(sg, cur, playing); };
+  document.getElementById("prev").onclick = () => renderSong(sg, Math.max(0, cur - 1));
+  document.getElementById("nextL").onclick = () => renderSong(sg, Math.min(sg.lines.length - 1, cur + 1));
+  $app.querySelectorAll("[data-line]").forEach(el => el.onclick = () => { speak(sg.lines[+el.dataset.line].ml, "ml"); renderSong(sg, +el.dataset.line); });
+  document.getElementById("play").onclick = () => playing ? renderSong(sg, cur, false) : renderSong(sg, cur, true);
+  if (playing) {
+    speak(sg.lines[cur].ml, "ml");
+    // time per line scales with length so you can read and repeat it aloud
+    const ms = Math.max(3500, sg.lines[cur].tr.length * 180);
+    karaokeTimer = setTimeout(() => {
+      if (!document.getElementById("play")) return;
+      if (cur < sg.lines.length - 1) renderSong(sg, cur + 1, true); else renderSong(sg, cur, false);
+    }, ms);
+  }
+}
+function buildSongQuiz(sg) {
+  const words = [...new Set(sg.lines.flatMap(l => l.ml.split(/\s+/)).filter(w => !w.endsWith("-")))];
+  return shuffle(sg.lines).map(line => {
+    const toks = line.ml.split(/\s+/);
+    const candidates = toks.map((w, i) => i).filter(i => !toks[i].endsWith("-"));
+    const bi = candidates[Math.floor(Math.random() * candidates.length)];
+    const word = toks[bi];
+    const others = pick(words.filter(w => w !== word), 3);
+    return { type: "blank", song: sg, line, toks, bi, word, options: shuffle([word, ...others]) };
+  });
+}
+function renderBlank(ex) {
+  const shown = ex.toks.map((w, i) => i === ex.bi ? `<span class="blank">____</span>` : esc(w)).join(" ");
+  return `<div class="prompt-type">Fill in the missing word</div>
+    <div class="muted" style="font-weight:700;margin-bottom:6px">🎵 ${esc(ex.song.title)}</div>
+    <div class="q"><div class="text"><span class="ml">${shown}</span>${S.showTr ? `<span class="tr">${esc(ex.line.tr.split(/\s+/).map((w, i) => i === ex.bi ? "____" : w).join(" "))}</span>` : ""}<span class="tr">${esc(ex.line.en)}</span></div></div>
+    <div class="opts">${ex.options.map((o, i) => `<button class="opt" data-i="${i}"><span class="k">${i + 1}</span><span class="ml">${esc(o)}</span></button>`).join("")}</div>`;
 }
 
 // ---------- keyboard ----------
@@ -485,7 +566,7 @@ document.addEventListener("keydown", e => {
   if (e.target && e.target.id === "typeIn") return;
   const ex = sess.queue[sess.i];
   if (/^[1-9]$/.test(e.key)) {
-    if (ex && (ex.type === "mc" || ex.type === "listen") && !sess.checked) {
+    if (ex && (ex.type === "mc" || ex.type === "listen" || ex.type === "blank") && !sess.checked) {
       const b = $app.querySelector(`.opt[data-i="${+e.key - 1}"]`); if (b) b.click();
     }
   } else if (e.key === "Enter") {

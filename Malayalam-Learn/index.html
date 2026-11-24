@@ -117,6 +117,10 @@ button{font:inherit;color:inherit;cursor:pointer}
 .word-list{display:grid;gap:6px}
 .word-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
 .word-row:last-child{border-bottom:none}
+.lyric{padding:10px 12px;border-radius:12px;margin-bottom:6px;cursor:pointer;border:2px solid transparent}
+.lyric.cur{background:var(--ok-bg);border-color:var(--brand)}
+.blank{display:inline-block;min-width:80px;border-bottom:3px solid var(--brand);color:var(--brand)}
+.cta.ghost:disabled{opacity:.5}
 .shake{animation:shake .3s}
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 @media (max-width:420px){.q .text{font-size:26px}.opt{font-size:16px}.prompt-type{font-size:20px}}
